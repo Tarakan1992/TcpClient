@@ -3,6 +3,7 @@
 	using System;
 	using System.IO;
 	using System.Net.Sockets;
+	using System.Text;
 
 	public class FileSender
 	{
@@ -28,7 +29,14 @@
 			var file = new FileStream(_fileName, FileMode.Open, FileAccess.Read);
 
 			int offset;
-			var message = new Byte[4096];
+			var message = Encoding.UTF8.GetBytes(_fileName);
+
+			if (!_tcpClient.Write(message, 0, message.Length))
+			{
+				return;
+			}
+
+			message = new Byte[4096];
 			var byteRead = 0;
 
 			try
