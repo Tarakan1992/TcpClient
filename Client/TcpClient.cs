@@ -29,11 +29,11 @@
 			}
 		}
 
-		public bool Write(byte[] buffer, int offset, int count)
+		public bool Write(byte[] buffer, int offset, int count, SocketFlags flag = SocketFlags.None)
 		{
 			try
 			{
-				_clientSocket.Send(buffer, offset, count, SocketFlags.None);
+				_clientSocket.Send(buffer, offset, count, flag);
 				return true;
 			}
 			catch
